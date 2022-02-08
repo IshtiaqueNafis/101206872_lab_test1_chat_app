@@ -1,14 +1,17 @@
 const express = require('express');
 const dotenv = require("dotenv");
 const connectDb = require("./config/Db");
-
-const app = express();
+const userRoutes = require("./Routes/userRoutes")
+const {errorHandler, notFound} = require("./middlewares/errorMiddleWare");
 dotenv.config()
 connectDb();
+const app = express();
+app.use(express.json());
 
-app.get('/', (req, res) => {
-    res.send('APi is RUnning');
-});
+app.use(notFound);
+app.use(errorHandler)
+
+app.use("/api/user", userRoutes)
 
 const PORT = process.env.PORT || 5000;
 
