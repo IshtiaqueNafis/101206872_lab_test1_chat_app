@@ -1,7 +1,10 @@
 const express = require('express');
 const dotenv = require("dotenv");
-dotenv.config()
+const connectDb = require("./config/Db");
+
 const app = express();
+dotenv.config()
+connectDb();
 
 app.get('/', (req, res) => {
     res.send('APi is RUnning');
